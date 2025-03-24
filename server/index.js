@@ -8,3 +8,5 @@ app.use(indexRoutes)
 
 app.listen(PORT)
 console.log(`Servidor ejecutandose en: http://localhost:${PORT} `);
+
+//https://youtu.be/dJbd7BYofp4?t=1145
