@@ -10,7 +10,7 @@ export const getTasks = async (req, res) => {
 export const getTask = async (req, res) => {
     const [result] = await pool.query('SELECT * FROM tasks WHERE id = ?', [req.params.id]); //Obtener un dato(tarea; objeto) en especifico indicado por los parametros de la URL('/:id') 
     console.log(req.params.id);
-    if(result.length == 0) {return res.status(404).json({message: "Tarea no encontrada"})}
+    if(result.length === 0) {return res.status(404).json({message: "Tarea no encontrada"})} //Validacion y verificacion para obtener un dato que exista en la BD
     res.send(result[0])
 };
 
@@ -29,7 +29,9 @@ export const updateTasks = (req, res) => {
     res.send('Actualizando tareas')
 };
 
-export const deleteTasks = (req, res) => {
-    res.send('Eliminando tarea')
+export const deleteTasks = async (req, res) => {
+    const [result] = await pool.query("DELETE FROM tasks WHERE id = ?", [req.params.id]); //Eliminar un dato(tarea; objeto) en espesifico por medio de la URL('/:id')
+    if(result.affectedRows === 0) {return res.status(404).json({message: "Tarea a eliminar no encontrada"})} // Validacion y verificacion para obtener un dato que exista en la BD
+    return res.sendStatus(204)
 };
 
