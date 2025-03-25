@@ -25,8 +25,9 @@ export const createTasks = async (req, res) => {
     })
 };
 
-export const updateTasks = (req, res) => {
-    res.send('Actualizando tareas')
+export const updateTasks = async (req, res) => {
+     const [result] = await pool.query("UPDATE tasks SET ? WHERE id = ?", [req.body, req.params.id]); // 1: Obtener el cuerpo del objeto(tareas); 2: Obtener el id del objeto(tarea). Primera consulta: (SET ? -> req.body), y segunda consulta: (WHERE id = ? -> req.params.id) 
+     res.json(result)
 };
 
 export const deleteTasks = async (req, res) => {
