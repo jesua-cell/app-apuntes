@@ -5,6 +5,9 @@ import taskRoutes from './routes/tasks.routes.js'
 
 const app = express()
 
+//Procesar los datos de cliente:
+app.use(express.json())
+
 app.use(indexRoutes)
 app.use(taskRoutes)
 
