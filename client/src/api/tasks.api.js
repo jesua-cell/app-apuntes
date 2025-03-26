@@ -17,3 +17,8 @@ export const createTaskRequest = async (task) => {
     const response = await axios.post("http://localhost:3000/tasks", task); 
     return response.data //retornar el metodo
 }
+
+export const deleteTaskRequest = async (id) => {
+    const response = await axios.delete(`http://localhost:3000/tasks/${id}`);
+    return response
+}
