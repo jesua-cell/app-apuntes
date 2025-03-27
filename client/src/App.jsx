@@ -10,16 +10,26 @@ import { NotFound } from './pages/NotFound.jsx'
 
 import { NavBar } from './components/NavBar.jsx'
 
+//useContext:
+import { TaskContextProvidar } from './context/TaskProvider.jsx'
+/**
+ * useContext permite enlazar funcionalidades de diferentes hooks
+ * Para que puedo funcionar el useContect tiene que iniciarse en hook Padre(app.js)
+ * Luego insertar todos los demos hooks dentro de su componente
+ */
+
 function App() {
 
   return (
     <>
-    <NavBar/>
-      <Routes>
-        <Route path='/' element={<TasksPages />} />
-        <Route path='new' element={<TaskForm />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <TaskContextProvidar>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<TasksPages />} />
+          <Route path='new' element={<TaskForm />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </TaskContextProvidar>
     </>
   )
 }

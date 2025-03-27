@@ -1,12 +1,16 @@
 /**
  * Formik: Mantiene el estado
  * Form: Crea el formulario
- */
+ */ 
 import { Form, Formik } from 'formik'
 
-import { createTaskRequest } from '../api/tasks.api'; //Exportar el metodo de Axios
+//uso de useContext
+import { useTask } from '../context/TaskProvider';
 
 export const TaskForm = () => {
+
+    const { createTask } = useTask()
+
     return (
         <>
             <div>
@@ -22,20 +26,11 @@ export const TaskForm = () => {
                      */
                     onSubmit={async (values, actions) => {
                         console.log(values);
-                        try {
-                            const response = await createTaskRequest(values);
-                            console.log(response);
-                            actions.resetForm()
-                        } catch (error) {
-                            console.error(error);
-                        }
+                        createTask(values);
+                        actions.resetForm();
                     }}
                 >
-                    {/*
-                    * Funciones del Formulario: Mannejo de Errores y Manejo de Envio
-                    * (values)parametro predeterminado de Formik; accede a los datos del form
-                    * (isSubmitting)parametro predeterminado de Formik; es metodo que activa y desactica la funcion (submit) del boton 
-                    */}
+
                     {({ handleChange, handleSubmit, values, isSubmitting }) => (
                         // metodo 'values'
                         <Form onSubmit={handleSubmit}>
