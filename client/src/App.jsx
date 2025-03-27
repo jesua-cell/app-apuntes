@@ -27,6 +27,7 @@ function App() {
         <Routes>
           <Route path='/' element={<TasksPages />} />
           <Route path='new' element={<TaskForm />} />
+          <Route path='edit/:id' element={<TaskForm />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </TaskContextProvidar>

@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
-import { getTaskRequest, deleteTaskRequest, createTaskRequest } from "../api/tasks.api" // Obtener, borrar y crear datos de la BD; 
+import { getTaskRequest, deleteTaskRequest, createTaskRequest, taskSpecificRequest,
+    updateTaskRequest
+ } from "../api/tasks.api" // Obtener, borrar y crear datos de la BD; 
 import { TaskContext } from "./TaskContext";
 
 
@@ -23,7 +25,7 @@ export const TaskContextProvidar = ({ children }) => { //Contenedor del useConte
          */
         setTasks(response.data);
         console.log(response.data);
-    }
+    };
 
     const deleteTask = async (id) => { //Funcion para borrar la tarea; recibe un parametro: (id)
         try {
@@ -33,7 +35,7 @@ export const TaskContextProvidar = ({ children }) => { //Contenedor del useConte
         } catch (error) {
             console.error(error)
         }
-    }
+    };
 
     const createTask = async (task) => {
         try {
@@ -47,13 +49,29 @@ export const TaskContextProvidar = ({ children }) => { //Contenedor del useConte
          * (values)parametro predeterminado de Formik; accede a los datos del form
          * (isSubmitting)parametro predeterminado de Formik; es metodo que activa y  desactica la funcion (submit) del boton
          */
+    };
+
+    const getTask = async (id) => { // Funcion para editar una tarea: en la URL tiene un '/:id'
+        try {
+            const response = await taskSpecificRequest(id);
+            return response.data;
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const updateTask = async (id, newFields) => { //Funcion para actualizar una tarea, obtiene el cuerpo de la solicitud: (newFields: title:"", description:"")
+        try {
+            const response = await updateTaskRequest(id, newFields);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
-        <TaskContext.Provider value={{ tasks, loadTask, deleteTask, deleteTask, createTask }}>
+        <TaskContext.Provider value={{ tasks, loadTask, deleteTask, deleteTask, createTask, getTask, updateTask }}>
             {children}
         </TaskContext.Provider>
     )
 }
-
-//https://youtu.be/dJbd7BYofp4?t=7337

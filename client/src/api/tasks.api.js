@@ -6,8 +6,8 @@ export const getTaskRequest = async () => {
      * URL:http://localhost:3000/tasks; localhost, puerto y path(tasks)
      */
     const response = await axios.get("http://localhost:3000/tasks");
-    return response
-}
+    return response;
+};
 
 export const createTaskRequest = async (task) => {
     /**
@@ -15,10 +15,20 @@ export const createTaskRequest = async (task) => {
      * URL: http://localhost:3000/tasks; localhost, puerto y path
      */
     const response = await axios.post("http://localhost:3000/tasks", task); 
-    return response.data //retornar el metodo
-}
+    return response.data; //retornar el metodo
+};
 
 export const deleteTaskRequest = async (id) => {
     const response = await axios.delete(`http://localhost:3000/tasks/${id}`);
+    return response;
+};
+
+export const taskSpecificRequest = async (id) => {
+    const response = await axios.get(`http://localhost:3000/tasks/${id}`);
+    return response;
+};
+
+export const updateTaskRequest = async (id, newFields) => {
+    const response = await axios.put(`http://localhost:3000/tasks/${id}`, newFields);
     return response
-}
+};
