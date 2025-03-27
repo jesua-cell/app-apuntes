@@ -32,8 +32,8 @@ export const TasksPages = () => {
 
     return (
         <>
-            <div>
-                <h1>Tareas:</h1>
+            <h1 className="text-5xl text-[#1a171b] font-bold text-center py-[30px]">Tareas:</h1>
+            <div className="grid grid-cols-3">
                 {rendeMain()}
             </div>
         </>

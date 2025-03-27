@@ -16,15 +16,19 @@ export const TaskCard = ({ task }) => {
 
     return (
         <>
-            <div>
-                <h2>{task.title}</h2>
+            <div className="task-card">
+                <header className="flex justify-between">
+                    <h2>{task.title}</h2>
+                    <span>{task.done == 1 ? "✅" : "❌"}</span>
+                </header>
                 <p>{task.description}</p>
-                <span>{task.done == 1 ? "👌" : "🤬"}</span>
-                <span>{task.createAt}</span>
-                <button onClick={() => deleteTask(task.id)}>Borrar</button>
-                {/* Evento para borrar tareas: indicadas por su ID */}
-                <button onClick={() => navigate(`/edit/${task.id}`)}>Editar</button>
-                <button onClick={() => handleDone(task.done)}>Done</button>
+                <h3>{task.createAt}</h3>
+                <div className="task-botones">
+                    <button className="btn-borrar" onClick={() => deleteTask(task.id)}>Borrar</button>
+                    {/* Evento para borrar tareas: indicadas por su ID */}
+                    <button className="btn-editar" onClick={() => navigate(`/edit/${task.id}`)}>Editar</button>
+                    <button className="btn-done" onClick={() => handleDone(task.done)}>Terminada</button>
+                </div>
             </div>
         </>
     )

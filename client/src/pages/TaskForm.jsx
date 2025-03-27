@@ -21,7 +21,7 @@ export const TaskForm = () => {
 
     const params = useParams()
     const navigate = useNavigate()
-    
+
     /**
      * El useEffect(): carga y ejecuta la funcion loadTask; la cual tiene adentro el metodo getTask()
      * Luego, actualiza el estado local con los nuevos datos
@@ -47,13 +47,6 @@ export const TaskForm = () => {
     return (
         <>
             <div>
-
-                <h1>
-                    {
-                        params.id ? "Editar Tarea" : "Crear Tarea"
-                    }
-                </h1>
-
                 <Formik
                     initialValues={tasks} //Valores iniciales
                     enableReinitialize={true} //Reiniciar valores
@@ -73,14 +66,14 @@ export const TaskForm = () => {
                         console.log(values);
                         if (params.id) {
                             await updateTask(params.id, values)
-                            navigate("/")
                         } else {
                             await createTask(values);
                         };
+                        navigate("/")
                         /**
                          * Limpiar el formulario despues de actualizar:
                          */
-                        setTasks({ 
+                        setTasks({
                             title: "",
                             description: ""
                         });
@@ -89,8 +82,13 @@ export const TaskForm = () => {
 
                     {({ handleChange, handleSubmit, values, isSubmitting }) => (
                         // metodo 'values'
-                        <Form onSubmit={handleSubmit}>
-                            <label>Titulo</label>
+                        <Form onSubmit={handleSubmit} className='taskFormulario'>
+                            <h1 className='tituloForm'>
+                                {
+                                    params.id ? "Editar Tarea" : "Crear Tarea"
+                                }
+                            </h1>
+                            <label className='labelFrom'>Titulo</label>
                             <input
                                 type="text"
                                 name='title'
@@ -98,8 +96,9 @@ export const TaskForm = () => {
                                 onChange={handleChange}
                                 value={values.title} />
 
-                            <label>Descripcion</label>
+                            <label className='labelFrom'>Descripcion</label>
                             <textarea
+                                className='textAreaForm'
                                 name="description"
                                 rows="3"
                                 placeholder='Escriba una descripcion'
@@ -107,7 +106,10 @@ export const TaskForm = () => {
                                 value={values.description}
                             ></textarea>
 
-                            <button type='submit' disabled={isSubmitting}>
+                            <button
+                                className='botonForm'
+                                type='submit'
+                                disabled={isSubmitting}>
                                 {isSubmitting ? "Enviando" : "Enviar"}
                             </button>
                             {/* el type='submit'activa el onSubmit */}
