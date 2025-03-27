@@ -14,7 +14,7 @@ export const createTaskRequest = async (task) => {
      * Crea un metodo post; que envia los valores del form(client/TaskForm.jsx) al (server/index.js)
      * URL: http://localhost:3000/tasks; localhost, puerto y path
      */
-    const response = await axios.post("http://localhost:3000/tasks", task); 
+    const response = await axios.post("http://localhost:3000/tasks", task);
     return response.data; //retornar el metodo
 };
 
@@ -30,5 +30,12 @@ export const taskSpecificRequest = async (id) => {
 
 export const updateTaskRequest = async (id, newFields) => {
     const response = await axios.put(`http://localhost:3000/tasks/${id}`, newFields);
-    return response
+    return response;
 };
+
+export const toggleTaskDoneRequest = async (id, done) => {
+    const response = await axios.put(`http://localhost:3000/tasks/${id}`, {
+        done
+    });
+    return response;
+}

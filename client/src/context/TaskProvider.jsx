@@ -1,7 +1,13 @@
 import { useContext, useState } from "react";
-import { getTaskRequest, deleteTaskRequest, createTaskRequest, taskSpecificRequest,
-    updateTaskRequest
- } from "../api/tasks.api" // Obtener, borrar y crear datos de la BD; 
+import {
+    getTaskRequest,
+    deleteTaskRequest,
+    createTaskRequest,
+    taskSpecificRequest,
+    updateTaskRequest,
+    toggleTaskDoneRequest
+} from "../api/tasks.api" // Obtener, borrar y crear datos de la BD; 
+
 import { TaskContext } from "./TaskContext";
 
 
@@ -69,8 +75,32 @@ export const TaskContextProvidar = ({ children }) => { //Contenedor del useConte
         }
     }
 
+    const ToggleTaskDone = async (id) => { // Funcion que actualiza el estado del 'done'
+
+        try {
+            const taskFound = tasks.find((task) => task.id === id); // Busco el ID en la BD
+            await toggleTaskDoneRequest(id, taskFound.done === 0 ? true : false); // Obtiene los datos de la BD, y muestra si es verdadero o falso
+            setTasks( // Actualiza el estado del formulario: 
+                tasks.map((task) => 
+                    task.id === id ? { ...task, done: !task.done } : task
+                )
+            )
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
-        <TaskContext.Provider value={{ tasks, loadTask, deleteTask, deleteTask, createTask, getTask, updateTask }}>
+        <TaskContext.Provider value={{
+            tasks,
+            loadTask,
+            deleteTask,
+            deleteTask,
+            createTask,
+            getTask,
+            updateTask,
+            ToggleTaskDone
+        }}>
             {children}
         </TaskContext.Provider>
     )
